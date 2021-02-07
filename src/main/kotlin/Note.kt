@@ -1,10 +1,10 @@
  data class Note (
+     var id: Int = 0,
      var title: String? = null,
-     val id: Int = 1,
      val ownerId: Int = 1,
-     var text: String,
+     var text: String = "",
      var isDeleted: Boolean = false,
-     val date: Long = 0L
-     //val comments: MutableList<Comment> = mutableListOf<Comment>(),
+     val date: Long = 0L,
+     var comments: MutableList<Comment> = mutableListOf()
  )
 
