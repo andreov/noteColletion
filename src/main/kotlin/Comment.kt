@@ -1,9 +1,9 @@
 data class Comment(
     var id: Int = 0,
-    val noteID:Int,
+    var noteID:Int = 0,
     val ownerId: Int = 1,
-    val text: String = "" ,
-    var isDeleted: Boolean = false,
+    val text: String = "",
+    //var isDeleted: Boolean = false,
     val date: Long = 0L,
-    //val comments: MutableList<Comment> = mutableListOf(),
+    //val commentsId: MutableList<Comment> = mutableListOf(),
     )

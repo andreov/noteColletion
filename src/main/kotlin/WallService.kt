@@ -17,8 +17,23 @@ class WallService {
         return null
     }
 
-    fun findCommitById(id: Int): Comment? {
-        for (commit in commentList) {
+    fun editNote(note: Note){
+        if (findNoteById(note.id) !== null){
+            val indexNote: Int = noteList.indexOf(findNoteById(note.id))
+            noteList[indexNote] = note
+
+        }else{
+            println("Запись не найдена")
+            return
+        }
+    }
+
+    fun editComment(comment: Comment){
+
+    }
+
+    fun findCommitById(id: Int,note: Note): Comment? {
+        for (commit in note.comments) {
             if (commit.id == id) return commit
         }
         return null
@@ -26,14 +41,15 @@ class WallService {
 
     fun addComment(comment: Comment) {
         if (findNoteById(comment.noteID) !== null) {
-            val idLastComment: Int = if (commentList.isEmpty()) comment.id else comment.id + 1
+            val indexNote: Int = noteList.indexOf(findNoteById(comment.noteID))
+            //noteList[indexNote]=note
+            val idLastComment: Int = if (noteList[indexNote].comments.isEmpty()) comment.id else comment.id + 1
             comment.id = idLastComment + 1
-            commentList.add(comment)
-            filterCommit(comment)
+            noteList[indexNote].comments.add(comment)
 
         } else {
-            val id: Int = comment.noteID
-            throw PostNotFoundException(message = "no note with id $id")
+            println("Запись не найдена")
+            return
         }
     }
 
@@ -46,22 +62,24 @@ class WallService {
     }
 
     fun deleteComment(comment: Comment) {
-        if (findNoteById(comment.noteID) !== null)
-            if (findCommitById(comment.id) !== null) {
-                commentList.remove(findCommitById(comment.id))
-                filterCommit(comment)
+        if (findNoteById(comment.noteID) !== null) {
+            val indexNote: Int = noteList.indexOf(findNoteById(comment.noteID))
+            val note: Note = noteList[indexNote]
+            if (findCommitById(comment.id, note) !== null) {
+                note.comments.remove(findCommitById(comment.id, note))
+                println("Комментарий ${comment.id} удален")
             } else {
-                println("Комментарий не найден")
+                println("Комментарий ${comment.id} не найден")
                 return
             }
-        else {
-            println("Запись не найдена")
+        }else {
+            println("Запись ${comment.noteID} не найдена")
             return
         }
 
     }
 
-    fun filterCommit(comment: Comment){
+    private fun filterCommit(comment: Comment){
         val comFilter = commentList.filter {
             it.noteID == comment.noteID
         }.toMutableList()
