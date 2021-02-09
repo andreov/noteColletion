@@ -27,14 +27,17 @@ fun main(){
     println()
 
     println("редактирование заметки")
-    wallService.editNote(Note(id=2, title = "htlfrnbhjdfybt gthdjq pfvtnrb"))
+    wallService.editNote(Note(id=2, title = "222222222", text = "222222222"))
     println(wallService.findNoteById(2))
     println()
 
+    println("редактирование комментария")
+    wallService.editComment(Comment(id=1, noteID=3, text = "33333333333333333333"))
+    println(wallService.findNoteById(3))
+    println()
 
-
-    //println(wallService.noteList)
-    //println(wallService.findNoteById(2))
+    println(wallService.noteList)
+   // println(wallService.findNoteById(1))
 
 
 
