@@ -1,43 +1,56 @@
+import NoteService.Companion.commentList
+import NoteService.Companion.noteList
+import kotlin.math.E
+
 fun main(){
 
-    val wallService = WallService()
+    val noteService = NoteService()
+    val commentService=CommentService()
+
     println("добавление заметки без комментариев")
-    wallService.addNote(Note(title = "Заголовок1", text = "первая запись"))
-    wallService.addNote(Note(title = "Заголовок2", text = "вторая запись"))
-    wallService.addNote(Note(title = "Заголовок3", text = "3 запись"))
-    println(wallService.noteList)
+    noteService.add(Notte(title = "Заголовок1", text = "первая запись"))
+    noteService.add(Notte(title = "Заголовок2", text = "вторая запись"))
+    noteService.add(Notte(title = "Заголовок3", text = "3 запись"))
+    println(noteList)
     println()
 
     println("добавление комментариев к заметкам")
-    wallService.addComment(Comment(noteID = 2, text = "комментарий к заметке2"))
-    wallService.addComment(Comment(noteID = 3, text = "комментарий к заметке3"))
-    println(wallService.noteList)
-    println(wallService.findNoteById(3))
+    commentService.add(Comment(noteId = 2, text = "1 комментарий к заметке2"))
+    commentService.add(Comment(noteId = 2, text = "2 комментарий к заметке2"))
+    commentService.add(Comment(noteId = 3, text = "1 комментарий к заметке3"))
+    println(noteList)
+    println(commentList)
     println()
 
     println("удаление заметки")
-    wallService.deleteNote(Note(id=1))
-    println(wallService.noteList)
+    noteService.delete(id=1)
+    //println(noteService.getById(1))
+    println()
+
+    println("Вывод всех заметок")
+    println(noteService.read())
     println()
 
     println("удаление Комментария")
-    wallService.deleteComment(Comment(id=1, noteID = 2))
-    wallService.deleteComment(Comment(id=1, noteID = 1))
-    println(wallService.findNoteById(2))
+    commentService.delete(id=1)
+    println(commentService.read())
     println()
 
     println("редактирование заметки")
-    wallService.editNote(Note(id=2, title = "222222222", text = "222222222"))
-    println(wallService.findNoteById(2))
+    println(noteService.getById(2))
+    noteService.edit(Notte(id = 2, title = "222222222", text = "222222222"))
+    println(noteService.getById(2))
     println()
 
     println("редактирование комментария")
-    wallService.editComment(Comment(id=1, noteID=3, text = "33333333333333333333"))
-    println(wallService.findNoteById(3))
+    println(commentService.getById(3))
+    commentService.edit(Comment(id = 3, noteId = 2, text = "33333333333333333333"))
+    println(commentService.getById(3))
     println()
 
-    println(wallService.noteList)
-   // println(wallService.findNoteById(1))
+
+
+
 
 
 
