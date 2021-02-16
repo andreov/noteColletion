@@ -10,7 +10,7 @@ interface CrudService <E> {
 
     fun getById(id: Int): E?
 
-    //fun restore(id: Long)
+    fun restore(id: Int)
 
 
 }

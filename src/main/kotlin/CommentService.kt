@@ -22,13 +22,14 @@ class CommentService:CrudService<Comment> {
     }
 
     override fun delete(id: Int) {
-        if (getById(id) !== null) {
-            commentList[id-1].isDeleted = true
-        } else {
-            println("Запись не найдена")
+        getById(id)?.let {
+            it.isDeleted = true
+            noteList[it.noteId-1].comments.remove(it)
             return
         }
+        println("Запись не найдена")
     }
+
 
     override fun read(): List<Comment> {
         return commentList.filter {
@@ -37,12 +38,27 @@ class CommentService:CrudService<Comment> {
     }
 
     override fun edit(entity: Comment) {
-        if (getById(entity.id) !== null) {
-            commentList[entity.id-1] = entity
-        } else {
-            throw NoteNotFoundException("Запись не найдена")
-
+        getById(entity.id)?.let {
+            commentList[it.id-1] = it.copy(text = entity.text)
+            val index = noteList[it.noteId-1].comments.indexOf(it)
+           // println(index)
+            noteList[it.noteId-1].comments[index] = commentList[it.id-1]
+            return
         }
+            throw NoteNotFoundException("Комментарий не найден")
+
+    }
+
+    override fun restore(id: Int) {
+        for (commit in commentList) {
+            if (commit.id == id) {
+                commit.isDeleted = false
+                println("Комментарий id=$id restore")
+                noteList[commit.noteId-1].comments.add(commit)
+                return
+            }
+        }
+        throw NoteNotFoundException("Комментарий id=$id не найден")
     }
 
 //    fun addCommentTo(id: Int) {

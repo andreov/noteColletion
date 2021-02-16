@@ -34,6 +34,7 @@ fun main(){
     println("удаление Комментария")
     commentService.delete(id=1)
     println(commentService.read())
+    println(noteService.read())
     println()
 
     println("редактирование заметки")
@@ -43,9 +44,24 @@ fun main(){
     println()
 
     println("редактирование комментария")
-    println(commentService.getById(3))
-    commentService.edit(Comment(id = 3, noteId = 2, text = "33333333333333333333"))
-    println(commentService.getById(3))
+    println(commentService.getById(2))
+    commentService.edit(Comment(id = 2, text = "33333333333333333333"))
+    println(commentService.getById(2))
+    println(noteService.read())
+    println()
+
+    println("выосстановление заметки")
+    println(noteService.read())
+    noteService.restore(id=1)
+    println(noteService.read())
+    println()
+
+    println("выосстановление комментария")
+    println(commentService.read())
+    println(noteService.read())
+    commentService.restore(id=1)
+    println(commentService.read())
+    println(noteService.read())
     println()
 
 

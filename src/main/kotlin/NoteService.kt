@@ -38,15 +38,25 @@ class NoteService : CrudService<Notte> {
     }
 
     override fun edit(entity: Notte) {
-        if (getById(entity.id) !== null) {
-            noteList[entity.id - 1] = entity
-        } else {
+        getById(entity.id)?.let {
+            noteList[it.id - 1] = it.copy(title = entity.title, text = entity.text)
+            return
+        }
             throw NoteNotFoundException("Запись не найдена")
 
-        }
+
     }
 
-
+     override fun restore(id: Int) {
+         for (note in noteList) {
+             if (note.id == id) {
+                 note.isDeleted = false
+                 println("Заметка id=$id restore")
+                 return
+             }
+         }
+         throw NoteNotFoundException("Запись id=$id не найдена")
+    }
 }
 
 
