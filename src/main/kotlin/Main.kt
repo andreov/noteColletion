@@ -24,7 +24,7 @@ fun main(){
 
     println("удаление заметки")
     noteService.delete(id=1)
-    //println(noteService.getById(1))
+
     println()
 
     println("Вывод всех заметок")

@@ -61,15 +61,5 @@ class CommentService:CrudService<Comment> {
         throw NoteNotFoundException("Комментарий id=$id не найден")
     }
 
-//    fun addCommentTo(id: Int) {
-//        if (getById(id) !== null) {
-//            val indexNote: Int = noteList.indexOf(getById(comment.noteId))
-//            val idLastComment: Int = if (noteList[indexNote].comments.isEmpty()) comment.id else comment.id + 1
-//            comment.id = idLastComment + 1
-//            noteList[indexNote].comments.add(comment)
-//
-//        } else {
-//            println("Запись не найдена")
-//            return
-//        }
+
 }

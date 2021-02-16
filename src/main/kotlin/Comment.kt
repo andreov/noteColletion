@@ -4,6 +4,6 @@ data class Comment(
     val ownerId: Int = 1,
     val text: String = "",
     var isDeleted: Boolean = false,
-    val date: Long = 0L,
-    //val commentsId: MutableList<Comment> = mutableListOf(),
+    val date: Long = 0L
+
     )
